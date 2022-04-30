@@ -34,10 +34,6 @@ public:
         if(c2 > (int)nums.size() / 3) {
             ans.push_back(m2);
         }
-        for(auto x: ans) {
-            cout << x << " ";
-        }
-        cout << endl;
         if(!ans.empty() && ans.front() == ans.back() && ans.size() == 2) {
             ans.pop_back();
         }
