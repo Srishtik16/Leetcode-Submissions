@@ -7,17 +7,17 @@ public:
         while(l <= r) {
             int mid = (l + r) / 2;
             if(matrix[mid][0] > target) {
-                ans = mid;
                 r = mid - 1;
             }
             else {
+                ans = mid;
                 l = mid + 1;
             }
         }
-        ans--;
-        if(ans < 0) {
+        if(ans == m) {
             return false;
         }
+        cout << ans << endl;
         l = 0, r = n - 1;
         while(l <= r) {
             int mid = (l + r) / 2;
