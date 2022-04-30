@@ -18,7 +18,6 @@ public:
         if(ans < 0) {
             return false;
         }
-        cout << ans << endl;
         l = 0, r = n - 1;
         while(l <= r) {
             int mid = (l + r) / 2;
