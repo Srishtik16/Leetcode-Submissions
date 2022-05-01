@@ -4,7 +4,7 @@ public:
         int n = s.size();
         int l = 0, r = 0;
         int ans = 0;
-        map<int, int> m;
+        unordered_map<int, int> m;
         while(l <= r && r < n) {
             m[s[r]]++;
             if(m.size() == r - l + 1) {
