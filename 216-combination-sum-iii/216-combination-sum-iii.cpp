@@ -8,9 +8,7 @@ public:
             return;
         }
         if(cnt == k) {
-            set<int> s(aux.begin(), aux.end());
-            sort(aux.begin(), aux.end());
-            if(!aux.empty() && (int)aux.size() == (int)s.size() && accumulate(aux.begin(), aux.end(), 0) == n && find(ans.begin(), ans.end(), aux) == ans.end()) {
+            if(!aux.empty() && accumulate(aux.begin(), aux.end(), 0) == n) {
                 ans.push_back(aux);
             }
             return;
