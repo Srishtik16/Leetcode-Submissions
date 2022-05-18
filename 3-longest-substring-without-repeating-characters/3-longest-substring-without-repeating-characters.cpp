@@ -1,10 +1,11 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        // l r --> number of unique characters in s[l, r].
         int n = s.size();
         int l = 0, r = 0;
+        unordered_map<char, int> m;
         int ans = 0;
-        unordered_map<int, int> m;
         while(l <= r && r < n) {
             m[s[r]]++;
             if(m.size() == r - l + 1) {
