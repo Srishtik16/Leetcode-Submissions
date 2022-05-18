@@ -3,7 +3,7 @@ public:
     string longestPalindrome(string s) {
         int n = s.size();
         // dp[l][r] = is s[l, r] a palindrome?
-        vector<vector<bool>> dp(n + 1, vector<bool> (n + 1, false));
+        vector<vector<bool>> dp(n + 1, vector<bool> (n + 1));
         for(int i = 0; i < n; i++) {
             dp[i][i] = true;
             if(i + 1 < n) {
