@@ -7,9 +7,7 @@ public:
         }
         int n = *max_element(nums.begin(), nums.end());
         vector<int> dp(n + 1, 0);
-        for(auto x: score) {
-            dp[x.first] = x.second;
-        }
+        dp[(*score.begin()).first] = (*score.begin()).second;
         for(int i = 2; i <= n; i++) {
             dp[i] = max(dp[i - 1], dp[i - 2] + score[i]);
         }
