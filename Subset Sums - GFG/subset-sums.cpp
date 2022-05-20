@@ -6,19 +6,21 @@ using namespace std;
 class Solution
 {
 public:
+    void recurse(vector<int> &ans, int sum, int index, vector<int> &a) {
+        if(index == (int)a.size()) {
+            ans.push_back(sum);
+            return;
+        }
+        sum += a[index];
+        recurse(ans, sum, index + 1, a);
+        sum -= a[index];
+        recurse(ans, sum, index + 1, a);
+    }
     vector<int> subsetSums(vector<int> a, int n)
     {
         // Write Your Code here
         vector<int> ans;
-        for(int mask = 0; mask < (1LL << n); mask++) {
-            int sum = 0;
-            for(int i = 0; i < n; i++) {
-                if((1LL << i) & mask) {
-                    sum += a[i];
-                }
-            }
-            ans.push_back(sum);
-        }
+        recurse(ans, 0, 0, a);
         return ans;
     }
 };
