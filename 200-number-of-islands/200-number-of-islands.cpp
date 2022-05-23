@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<pair<int, int>> dz = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+    const vector<pair<int, int>> dz = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     bool isValid(vector<vector<char>> &grid, vector<vector<bool>> &vis, int x, int y, int m, int n) {
         return x >= 0 && y >= 0 && x < m && y < n && !vis[x][y] && grid[x][y] == '1';
     }
