@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findMaxForm(vector<string>& strs, int m, int n) {
-        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1));
         // dp[i][j] = size of largest subset which has atmost i zeroes and j ones if i take/not take the current string
         //dp[0][i] = all elements with only ones with total <= i
         // dp[i][0] = all elements with only zeroes with total <= i
