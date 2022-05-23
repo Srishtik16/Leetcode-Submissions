@@ -7,7 +7,7 @@ public:
         // dp[i][0] = all elements with only zeroes with total <= i
         // dp[0][0] = 0
         // dp[i][j] = max(dp[i][j], dp[i - zeroes_in_string][j - ones_in_string]
-        for(auto &x: strs) {
+        for(string &x: strs) {
             for(int i = m; i >= 0; i--) {
                 for(int j = n; j >= 0; j--) {
                     int zeroes = count(x.begin(), x.end(), '0');
