@@ -9,7 +9,7 @@ public:
                 if(word.empty()) {
                     continue;
                 }
-                words.push_back(word);
+                words.emplace_back(word);
                 word = "";
             }
             else {
