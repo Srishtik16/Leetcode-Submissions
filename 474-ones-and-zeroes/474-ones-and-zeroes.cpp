@@ -1,23 +1,21 @@
 class Solution {
 public:
     int findMaxForm(vector<string>& strs, int m, int n) {
-        vector<vector<int>> dp(m + 1, vector<int>(n + 1));
-        // dp[i][j] = size of largest subset which has atmost i zeroes and j ones if i take/not take the current string
-        //dp[0][i] = all elements with only ones with total <= i
-        // dp[i][0] = all elements with only zeroes with total <= i
-        // dp[0][0] = 0
-        // dp[i][j] = max(dp[i][j], dp[i - zeroes_in_string][j - ones_in_string]
-        for(string &x: strs) {
-            for(int i = m; i >= 0; i--) {
-                for(int j = n; j >= 0; j--) {
-                    int zeroes = count(x.begin(), x.end(), '0');
-                    int ones = x.size() - zeroes;
-                    if(i - zeroes >= 0 && j - ones >= 0) {
-                        dp[i][j] = max(dp[i][j], dp[i - zeroes][j - ones] + 1);
+        vector<vector<vector<int>>> dp(strs.size() + 1, vector<vector<int>>(m + 1, vector<int> (n + 1)));
+        for(int i = 1; i <= strs.size(); i++) {
+            int zero = count(strs[i - 1].begin(), strs[i - 1].end(), '0');
+            int one = strs[i - 1].size() - zero;
+            for(int j = 0; j <= m; j++) {
+                for(int k = 0; k <= n; k++) {
+                    if(j - zero >= 0 && k - one >= 0) {
+                        dp[i][j][k] = max(dp[i - 1][j][k], 1 + dp[i - 1][j - zero][k - one]);
+                    }
+                    else {
+                        dp[i][j][k] = dp[i - 1][j][k];
                     }
                 }
             }
         }
-        return dp[m][n];
+        return dp[strs.size()][m][n];
     }
 };
