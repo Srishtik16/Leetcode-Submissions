@@ -11,7 +11,7 @@ public:
             for(int i = m; i >= 0; i--) {
                 for(int j = n; j >= 0; j--) {
                     int zeroes = count(x.begin(), x.end(), '0');
-                    int ones = count(x.begin(), x.end(), '1');
+                    int ones = x.size() - zeroes;
                     if(i - zeroes >= 0 && j - ones >= 0) {
                         dp[i][j] = max(dp[i][j], dp[i - zeroes][j - ones] + 1);
                     }
