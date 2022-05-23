@@ -4,7 +4,7 @@ public:
         vis[node] = true;
         for(auto x: graph[node]) {
             if(!vis[x]) {
-                dfs(graph, vis, col, x, (dep + 1) % 2);
+                dfs(graph, vis, col, x, dep ^ 1);
                 col[x] = dep;
             }
         }
