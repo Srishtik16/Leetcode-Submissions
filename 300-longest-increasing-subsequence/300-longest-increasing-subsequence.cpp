@@ -2,7 +2,7 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& a) {
         int n = a.size();
-        vector<int> dp(n, 1);
+        vector<int> dp(n, 0);
         // dp[i] = length of LIS ending at i
         for(int i = 1; i < n; i++) {
             for(int j = 0; j < i; j++) {
@@ -11,6 +11,6 @@ public:
                 }
             }
         }
-        return *max_element(dp.begin(), dp.end());
+        return *max_element(dp.begin(), dp.end()) + 1;
     }
 };
