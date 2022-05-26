@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool dfs(vector<vector<char>> &board, vector<vector<bool>> &vis, int index, string word, string aux, int x, int y) {
+    bool dfs(vector<vector<char>> &board, vector<vector<bool>> &vis, int index, string word, string &aux, int x, int y) {
         if(index == (int)word.size()) {
             return true;
         }
