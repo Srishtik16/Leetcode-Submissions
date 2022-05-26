@@ -47,7 +47,6 @@ public:
                 ans.push_back(nums[i]);
             }
         }
-        cout << ans[0] << " " << ans[1] << " " << ans[2] << endl;
         return ans[0] + ans[1] + ans[2];
     }
 };
