@@ -5,7 +5,7 @@ public:
         vector<int> bitmasks(n);
         for(int i = 0; i < n; i++) {
             for(char c: words[i]) {
-                bitmasks[i] |= (1LL << (c - 'a'));
+                bitmasks[i] |= (1 << (c - 'a'));
             }
         }
         int ans = 0;
