@@ -1,7 +1,7 @@
 class Solution {
 public:
     int numSplits(string s) {
-        map<char, int> pref, suff;
+        unordered_map<char, int> pref, suff;
         for(char c: s) {
             suff[c]++;
         }
