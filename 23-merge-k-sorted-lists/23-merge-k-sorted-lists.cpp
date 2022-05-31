@@ -40,11 +40,17 @@ public:
         return node;
     }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        ListNode* merged = NULL;
         int n = lists.size();
-        for(int i = 0; i < n; i++) {
-            merged = mergeTwoLists(merged, lists[i]);
+        if(n == 0) {
+            return NULL;
         }
-        return merged;
+        int del = 1;
+        while(n - del > 0) {
+            for(int i = 0; i < n - del; i += del * 2) {
+                lists[i] = mergeTwoLists(lists[i], lists[i + del]);
+            }
+            del *= 2;
+        }
+        return lists[0];
     }
 };
