@@ -3,7 +3,7 @@ public:
     vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
         int n = nums1.size();
         int m = nums2.size();
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>> pq;
+        priority_queue<pair<int, pair<int, int>>> pq;
         vector<vector<int>> ans;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
