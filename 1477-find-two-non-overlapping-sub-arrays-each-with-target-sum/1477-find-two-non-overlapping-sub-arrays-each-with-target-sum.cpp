@@ -10,7 +10,7 @@ public:
             if(sum == target) {
                 dp1[i] = i + 1;
             }
-            else if(m.find(sum - target) != m.end()) {
+            if(m.find(sum - target) != m.end()) {
                 dp1[i] = min(dp1[i], i - m[sum - target]);
             }
             if(i > 0) {
@@ -25,7 +25,7 @@ public:
             if(sum == target) {
                 dp2[i] = n - i;
             }
-            else if(m.find(sum - target) != m.end()) {
+            if(m.find(sum - target) != m.end()) {
                 dp2[i] = min(dp2[i], m[sum - target] - i);
             }
             if(i < n - 1) {
