@@ -3,7 +3,8 @@ public:
     int longestCommonSubsequence(string s, string t) {
         int n = s.size();
         int m = t.size();
-        vector<vector<int>> dp(n + 1, vector<int> (m + 1, 0));
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
+        // dp[i][j] = LCS of s[0, i] and t[0, j]
         for(int i = 1; i <= n; i++) {
             for(int j = 1; j <= m; j++) {
                 if(s[i - 1] == t[j - 1]) {
