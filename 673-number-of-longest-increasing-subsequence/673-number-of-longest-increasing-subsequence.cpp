@@ -18,14 +18,6 @@ public:
                 }
             }
         }
-        for(auto x: dp) {
-            cout << x << " ";
-        }
-        cout << endl;
-        for(auto x: cnt) {
-            cout << x << " ";
-        }
-        cout << endl;
         int mx = *max_element(dp.begin(), dp.end());
         int ans = 0;
         for(int i = 0; i < n; i++) {
