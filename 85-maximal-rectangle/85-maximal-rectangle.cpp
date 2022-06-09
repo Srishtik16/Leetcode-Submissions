@@ -55,29 +55,8 @@ public:
             }
         }
         int ans = 0;
-        vector<vector<int>> aux(m, vector<int>(n));
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                aux[i][j] = mat[j][i];
-            }
-        }
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(matrix[i][j] == '0') {
-                    mat[i][j] = 0;
-                }
-            }
-        }
-        for(auto x: mat) {
-            for(auto y: x) {
-                cout << y << " ";
-            }
-            cout << endl;
-        }
-        cout << endl;
         for(auto x: mat) {
             ans = max(ans, largestRectangleArea(x));
-            cout << largestRectangleArea(x) << endl;
         }
         return ans;
     }
