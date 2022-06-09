@@ -31,7 +31,6 @@ public:
     }
     double frogPosition(int n, vector<vector<int>>& edges, int t, int target) {
         vector<int> vec[n + 1];
-        vector<int> outDeg(n + 1, 0);
         for(auto x: edges) {
             vec[x[0]].push_back(x[1]);
             vec[x[1]].push_back(x[0]);
@@ -46,10 +45,6 @@ public:
         }
         auto path = bfs(vec, 1, n, target);
         vec[1].push_back(-1);
-        for(auto x: path) {
-            cout << x << " " << outDeg[x] << endl;
-        }
-        cout << endl;
         if(path.size() > t + 1) {
             return 0.0;
         }
