@@ -19,20 +19,20 @@ public:
                 q.pop();
                 if(turn ^ col) {
                     for (int u : redAdj[v]) {
-                        d[u] = min(d[u], levels);
                         if (!used1[u]) {
                             used1[u] = true;
                             q.push(u);
+                            d[u] = min(d[u], levels);
                             p[u] = v;
                         }
                     }
                 }
                 else {
                     for (int u : blueAdj[v]) {
-                        d[u] = min(d[u], levels);
                         if (!used2[u]) {
                             used2[u] = true;
                             q.push(u);
+                            d[u] = min(d[u], levels);
                             p[u] = v;
                         }
                     }
