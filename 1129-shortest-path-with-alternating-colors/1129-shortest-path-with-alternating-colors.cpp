@@ -55,7 +55,6 @@ public:
         vector<int> d2 = bfs(redAdj, blueAdj, 0, n, false);
         vector<int> ans(n);
         for(int i = 0; i < n; i++) {
-            cout << i << " " << d1[i] << " " << d2[i] << endl;
             ans[i] = min(d1[i], d2[i]);
             if(ans[i] == 1e9) {
                 ans[i] = -1;
