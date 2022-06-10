@@ -48,10 +48,6 @@ public:
         }
         int target = find(bank.begin(), bank.end(), end) - bank.begin();
         auto d = bfs(vec, 0, n, target);
-        for(auto x: d) {
-            cout << x << " ";
-        }
-        cout << endl;
         if(d[target] == 1e9) {
             return -1;
         }
