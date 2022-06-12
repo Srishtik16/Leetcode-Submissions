@@ -28,11 +28,8 @@ public:
                 m[nums[r]]++;
             }
             ok = false;
-            if(m.size() == (r - l + 1) && getSum(l, r) > ans) {
+            if(m.size() == (r - l + 1)) {
                 ans = max(ans, getSum(l, r));
-                r++;
-            }
-            else if(m.size() == (r - l + 1)) {
                 r++;
             }
             else {
