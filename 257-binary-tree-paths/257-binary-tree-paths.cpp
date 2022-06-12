@@ -13,7 +13,6 @@ class Solution {
 public:
     void dfs(TreeNode* root, vector<string> &ans, string path) {
         if(root -> left == NULL && root -> right == NULL) {
-            // path += to_string(root -> val);
             ans.push_back(path + to_string(root -> val));
             return;
         }
