@@ -5,7 +5,7 @@ public:
         vector<int> prev(n), next(n);
         stack<int> s;
         for(int i = 0; i < n; i++) {
-            while(!s.empty() && a[s.top()] >= a[i]) {
+            while(!s.empty() && a[s.top()] > a[i]) {
                 s.pop();
             }
             if(s.empty()) {
@@ -20,7 +20,7 @@ public:
             s.pop();
         }
         for(int i = n - 1; i >= 0; i--) {
-            while(!s.empty() && a[s.top()] > a[i]) {
+            while(!s.empty() && a[s.top()] >= a[i]) {
                 s.pop();
             }
             if(s.empty()) {
