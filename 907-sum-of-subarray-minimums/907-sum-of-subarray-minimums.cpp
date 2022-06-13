@@ -31,15 +31,11 @@ public:
             }
             s.push(i);
         }
-        // for(int i = 0; i < n; i++) {
-        //     cout << prev[i] << " " << next[i] << endl;
-        // }
         const int MOD = 1e9 + 7;
         long long ans = 0;
         for(int i = 0; i < n; i++) {
             int left = i - prev[i];
             int right = next[i] - i;
-            // cout << a[i] << " " << left << " " << right << endl;
             ans += a[i] * 1LL * (left) * 1LL * (right);
             ans %= MOD;
         }
