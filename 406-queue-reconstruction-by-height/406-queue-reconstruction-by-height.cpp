@@ -2,7 +2,6 @@ class Solution {
 public:
     vector<int> st;
     void update(int node, int start, int end, int idx, int val) {
-        // cout << start << " " << end << endl;
         if(idx == start && start == end) {
             st[node] = val;
             return;
@@ -16,7 +15,6 @@ public:
         st[node] = st[2 * node + 1] + st[2 * node + 2];
     }
     int find(int node, int start, int end, int k) {
-        // cout << start << " " << end << endl;
         if(start == end) {
             return start;
         }
