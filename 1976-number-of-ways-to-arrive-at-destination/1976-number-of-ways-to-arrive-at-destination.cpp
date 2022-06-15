@@ -12,8 +12,8 @@ public:
             long long dist = (*s.begin()).first;
             s.erase(s.begin());
             for(auto x: vec[u]) {
-                if(d[u] + x.first < d[x.second]) {
-                    d[x.second] = min(d[u] + x.first, d[x.second]);
+                if(dist + x.first < d[x.second]) {
+                    d[x.second] = min(dist + x.first, d[x.second]);
                     ways[x.second] = ways[u];
                     s.insert({d[x.second], x.second});
                 }
