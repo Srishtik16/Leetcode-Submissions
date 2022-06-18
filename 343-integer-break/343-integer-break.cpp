@@ -6,12 +6,10 @@ public:
             int val = 0;
             if(n / i - 1 != 0) {
                 val = powl(i, ((n / i) - 1)) * (n % i + i);
-                cout << val << " ";
                 ans = max(ans, val);
             }
             val = powl(i, ((n / i))) * (n % i);
             ans = max(ans, val);
-            cout << val << endl;
         }
         return ans; 
     }
