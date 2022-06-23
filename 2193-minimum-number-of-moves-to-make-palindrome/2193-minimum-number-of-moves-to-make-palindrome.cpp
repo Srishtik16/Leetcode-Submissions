@@ -1,30 +1,34 @@
 class Solution {
 public:
-    int minMovesToMakePalindrome(string s) {
-        int count=0,te=0,counter=0;
-        for(int j=0;j<s.length()/2;j++){
-            int c=0;
-            char temp=s[j];
-            for(int i=s.size()-1-j;i>j;i--){
-                if(s[i]==temp){
-                    char t=s[i];
-                    s.erase(s.size()-1-c-j,1);
-                    s.insert(s.end()-j,t);
-                    count+=c;
-                    break;
-                }else if(i==(j+1)){
-                    te=j;
-                    s.erase(s.begin()+j);
-                    j--;
-                    counter++;
-                    break;
-                }
-              c++;
+    bool isPalindrome(string s) {
+        string t = s;
+        reverse(s.begin(), s.end());
+        return s == t;
+    }
+    int recurse(string s) {
+        if(s.empty()) {
+            return 0;
+        }
+        if(isPalindrome(s)) {
+            return 0;
+        }
+        int n = s.size();
+        if(count(s.begin(), s.end(), s[0]) == 1) {
+            int mid = (n + 1) / 2 - 1;
+            return recurse(s.substr(1)) + mid;
+        }
+        int ind = 0;
+        for(int i = n - 1; i >= 1; i--) {
+            if(s[i] == s[0]) {
+                ind = i;
+                break;
             }
-         }
-        if(counter!=0){
-            count+=(s.size()/2)-te;
-        }    
-        return count;
+        }
+        s.erase(s.begin());
+        s.erase(s.begin() + ind - 1);
+        return recurse(s) + (n - 1 - ind);
+    }
+    int minMovesToMakePalindrome(string s) {
+        return recurse(s);
     }
 };
