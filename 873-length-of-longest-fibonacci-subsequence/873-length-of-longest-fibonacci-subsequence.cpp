@@ -2,7 +2,7 @@ class Solution {
 public:
     int lenLongestFibSubseq(vector<int>& a) {
         int n = a.size();
-        map<int, int> dp;
+        unordered_map<int, int> dp;
         for(int i = 2; i < n; i++) {
             for(int j = 1; j < i; j++) {
                 int diff = a[i] - a[j];
