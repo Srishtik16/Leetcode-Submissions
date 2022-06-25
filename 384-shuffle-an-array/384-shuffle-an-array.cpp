@@ -14,7 +14,9 @@ public:
     
     vector<int> shuffle() {
         int n = a.size();
-        for(int i = 0; i < n; i++) {
+        // Fischer Yales Algorithm 
+        // for random shuffle an array
+        for(int i = n - 1; i >= 0; i--) {
             int ind = rand() % (i + 1);
             swap(a[i], a[ind]);
         }
