@@ -15,11 +15,11 @@ public:
         auto antiClockWise = [&](int x, int y) {
             return min(x, y) + 1440 - (max(x, y));
         };
-        sort(timePoints.begin(), timePoints.end());
         vector<int> time1, time2;
         for(auto x: timePoints) {
             time1.push_back(convert(x));
         }
+        sort(time1.begin(), time1.end());
         int ans = INT_MAX;
         for(int i = 1; i < time1.size(); i++) {
             ans = min(ans, clockWise(time1[i], time1[i - 1]));
