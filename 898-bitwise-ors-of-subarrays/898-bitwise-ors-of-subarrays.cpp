@@ -4,9 +4,9 @@ public:
         int n = A.size();
         // prev -> pref[i - 1]
         // curr -> pref[i]
-        unordered_set<int> prev, ans;
+        set<int> prev, ans;
         for(int i = 0; i < n; i++) {
-            unordered_set<int> curr;
+            set<int> curr;
             curr.insert(A[i]);
             ans.insert(A[i]);
             for(auto x: prev) {
