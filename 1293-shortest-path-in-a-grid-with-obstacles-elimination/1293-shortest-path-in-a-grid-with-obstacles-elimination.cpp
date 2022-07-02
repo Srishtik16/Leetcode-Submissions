@@ -1,49 +1,51 @@
 class Solution {
 public:
-    int shortestPath(vector<vector<int>>& matrix, int k) {
-        int n = matrix.size();
-        int m = matrix[0].size();
-        vector<vector<int>> obstacle(n, vector<int>(m));
-        vector<vector<bool>> vis(n, vector<bool>(m, false));
-        const vector<pair<int, int>> dirs = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    const vector<int> dx = {1, 0, -1, 0};
+    const vector<int> dy = {0, 1, 0, -1};
+    int shortestPath(vector<vector<int>>& grid, int k) {
+        int n = grid.size();
+        int m = grid[0].size();
         auto isValid = [&](int x, int y) {
             return x >= 0 && y >= 0 && x < n && y < m;
         };
-        obstacle[0][0] = matrix[0][0];
-        // {location, number of obstacles}
-        queue<vector<int>> q;
-        q.push({0, 0, obstacle[0][0]});
-        vis[0][0] = true;
-        int moves = 0;
+        vector<vector<int>> d(n, vector<int>(m, INT_MAX));
+        bool vis[41][41][1601];
+        memset(vis, false, sizeof(vis));
+        queue<vector<int>> q; // {x, y, obstacles left}
+        d[0][0] = 0;
+        vis[0][0][k] = true;
+        q.push({0, 0, k});
+        int steps = 0;
         while(!q.empty()) {
             int qs = q.size();
             while(qs--) {
-                auto info = q.front();
+                int x = q.front()[0];
+                int y = q.front()[1];
+                int obstacle = q.front()[2];
                 q.pop();
-                if(info[0] == n - 1 && info[1] == m - 1) {
-                    return moves;
+                if(x == n - 1 && y == m - 1) {
+                    return steps;
                 }
-                for(auto &dir: dirs) {
-                    if(isValid(info[0] + dir.first, info[1] + dir.second)) {
-                        int nx = info[0] + dir.first;
-                        int ny = info[1] + dir.second;
-                        int oldObs = obstacle[nx][ny];
-                        int newObs = info[2] + matrix[nx][ny];
-                        if(!vis[nx][ny] && newObs <= k) {
-                            q.push({nx, ny, newObs});
-                            obstacle[nx][ny] = newObs;
-                            vis[nx][ny] = true;
+                for(int i = 0; i < 4; i++) {
+                    int nx = dx[i] + x;
+                    int ny = dy[i] + y;
+                    if(isValid(nx, ny)) {
+                        if(grid[nx][ny] == 1 && obstacle > 0 && !vis[nx][ny][obstacle - 1]) {
+                            q.push({nx, ny, obstacle - 1});
+                            vis[nx][ny][obstacle - 1] = true;
+                            d[nx][ny] = min(d[x][y] + 1, d[nx][ny]);
                         }
-                        else if(newObs < oldObs && newObs <= k) {
-                            q.push({nx, ny, newObs});
-                            obstacle[nx][ny] = newObs;
-                            vis[nx][ny] = true;
+                        else if(grid[nx][ny] == 0 && !vis[nx][ny][obstacle]) {
+                            q.push({nx, ny, obstacle});
+                            vis[nx][ny][obstacle] = true;
+                            d[nx][ny] = min(d[x][y] + 1, d[nx][ny]);
                         }
                     }
                 }
             }
-            moves++;
+            steps++;
         }
         return -1;
+        return d[n - 1][m - 1] == INT_MAX ? -1 : d[n - 1][m - 1];
     }
 };
