@@ -1,29 +1,29 @@
 class Solution {
 public:
     vector<int> findOriginalArray(vector<int>& changed) {
-        multiset<int> ms(changed.begin(), changed.end());
-        vector<int> ans;
-        if(ms.count(0) & 1) {
+        int MaxN = 1e5 + 5;
+        vector<int> hash(MaxN, 0), ans;
+        for(auto x: changed) {
+            hash[x]++;
+        }
+        for(int i = 0; i <= 50000; i++) {
+            if(hash[i]) {
+                if(--hash[i] < 0 || --hash[i * 2] < 0) {
+                    return vector<int>();
+                }
+                ans.push_back(i);
+                i--;
+            }
+        }
+        int sum = 0;
+        for(int i = 0; i < MaxN; i++) {
+            sum += hash[i];
+        }
+        if(sum > 0) {
+            return vector<int>();
+        }
+        else {
             return ans;
         }
-        ans.assign(ms.count(0) / 2, 0);
-        ms.erase(0);
-        while(!ms.empty()) {
-            int x = *ms.begin();
-            if(ms.find(x * 2) != ms.end()) {
-                ans.push_back(x);
-                ms.erase(ms.find(x));
-                ms.erase(ms.find(x * 2));
-            }
-            else if(x % 2 == 0 && ms.find(x / 2) != ms.end()) {
-                ans.push_back(x / 2);
-                ms.erase(ms.find(x / 2));
-                ms.erase(ms.find(x));
-            }
-            else {
-                return vector<int>();
-            }
-        }
-        return ans;
     }
 };
