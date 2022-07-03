@@ -10,17 +10,7 @@ public:
         ms.erase(0);
         while(!ms.empty()) {
             int x = *ms.begin();
-            if(x == 0) {
-                if(ms.count(x) >= 2) {
-                    ans.push_back(0);
-                    ms.erase(ms.find(0));
-                    ms.erase(ms.find(0));
-                }
-                else {
-                    return vector<int>();
-                }
-            }
-            else if(ms.find(x * 2) != ms.end()) {
+            if(ms.find(x * 2) != ms.end()) {
                 ans.push_back(x);
                 ms.erase(ms.find(x));
                 ms.erase(ms.find(x * 2));
