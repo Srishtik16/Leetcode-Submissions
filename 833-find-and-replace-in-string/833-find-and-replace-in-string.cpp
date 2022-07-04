@@ -24,7 +24,6 @@ public:
         for(int i = 0; i < n; i++) {
             Info info(vec[i].first, vec[i].second.first, vec[i].second.second);
             val.push_back(info);
-            // vec.push_back({indices[i], {sources[i], targets[i]}});
         }
         for(auto x: val) {
             int i = x.index;
