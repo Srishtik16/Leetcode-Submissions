@@ -60,7 +60,7 @@ public:
     }
     int wordCount(vector<string>& startWords, vector<string>& targetWords) {
         int n = startWords.size();
-        map<int, string> hashStart;
+        unordered_map<int, string> hashStart;
         for(int i = 0; i < n; i++) {
             string s = startWords[i];
             sort(startWords[i].begin(), startWords[i].end());
