@@ -67,7 +67,7 @@ public:
             hashStart[computeFullHash(startWords[i])] = s;
         }
         int ans = 0;
-        for(auto &x: targetWords) {
+        for(auto x: targetWords) {
             sort(x.begin(), x.end());
             vector<int> hash = computeHash(x);
             int l = x.size();
