@@ -18,9 +18,10 @@ public:
         }
         if(ans <= root -> val) {
             good++;
+            ans = max(ans, root -> val);
         }
-        dfs(root -> left, max(ans, root -> val));
-        dfs(root -> right, max(ans, root -> val));
+        dfs(root -> left, ans);
+        dfs(root -> right, ans);
     }
     int goodNodes(TreeNode* root) {
         good = 0;
