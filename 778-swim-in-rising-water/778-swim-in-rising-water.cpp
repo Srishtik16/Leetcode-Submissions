@@ -30,6 +30,6 @@ public:
                 }
             }
         }
-        return -1;
+        assert(false);
     }
 };
