@@ -175,7 +175,7 @@ using Mint = Modular<std::integral_constant<decay<decltype(md)>::type, md>>;
 class Solution {
 public:
     int checkRecord(int n) {
-        // dp[i][j][k] = numbers of sequences of length i with atmost j As and k trailing zeroes
+        // dp[i][j][k] = numbers of sequences of length i with atmost j As and k trailing Ls
         Mint dp[n + 1][2][3];
         dp[0][0][0] = 1;
         dp[0][1][0] = 1;
