@@ -19,8 +19,6 @@ public:
             if(it2 != indices.end()) {
                 diffRight = abs(*it2 - bulbs[days] - 1);
             }
-            cout << *it1 << " " << *it2 << endl;
-            cout << diffLeft << " " << diffRight << endl;
             if(diffLeft == k || diffRight == k) {
                 return days + 1;
             }
