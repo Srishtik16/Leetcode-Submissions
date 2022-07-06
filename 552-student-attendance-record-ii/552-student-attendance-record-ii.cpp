@@ -175,27 +175,33 @@ using Mint = Modular<std::integral_constant<decay<decltype(md)>::type, md>>;
 class Solution {
 public:
     int checkRecord(int n) {
-        // dp[i][j][k] = numbers of sequences of length i with atmost j As and k trailing Ls
-        Mint dp[n + 1][2][3];
-        dp[0][0][0] = 1;
-        dp[0][1][0] = 1;
-        dp[0][0][1] = 1;
-        dp[0][0][2] = 1;
-        dp[0][1][1] = 1;
-        dp[0][1][2] = 1;
-        for(int i = 1; i <= n; i++) {
-            for(int j = 0; j < 2; j++) {
-                for(int k = 0; k < 3; k++) {
-                    dp[i][j][k] += dp[i - 1][j][2];
-                    if(j > 0) {
-                        dp[i][j][k] += dp[i - 1][j - 1][2];
-                    }
-                    if(k > 0) {
-                        dp[i][j][k] += dp[i - 1][j][k - 1];
-                    }
-                }
+        vector<vector<Mint>> dp(n, vector<Mint>(2, 0));
+        if(n == 1) {
+            return 3;
+        }
+        dp[0][0] = 1;
+        dp[0][1] = 1;
+        dp[1][0] = 2;
+        dp[1][1] = 2;
+        for(int i = 2; i < n; i++) {
+            dp[i][0] += dp[i - 1][0] + dp[i - 1][1];
+            dp[i][1] += dp[i - 1][0] + dp[i - 2][0];
+        }
+        Mint ans = dp[n - 1][0] + dp[n - 1][1];
+        for(int i = 0; i < n; i++) {
+            if(i == 0) {
+                ans += dp[n - 2][0] + dp[n - 2][1];
+            }
+            else if(i == n - 1) {
+                ans += dp[n - 2][0] + dp[n - 2][1];
+            }
+            else if(i == 1) {
+                ans += (dp[0][0] + dp[0][1]) * (dp[n - i - 2][0] + dp[n - i - 2][1]);
+            }
+            else {
+                ans += (dp[i - 1][0] + dp[i - 1][1]) * (dp[n - i - 2][0] + dp[n - i - 2][1]);
             }
         }
-        return (int)dp[n][1][2];
+        return (int)ans;
     }
 };
