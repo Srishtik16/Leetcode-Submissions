@@ -12,6 +12,7 @@ public:
             string st = s.substr(index, i - index);
             if(find(dict.begin(), dict.end(), st) != dict.end()) {
                 if(recurse(i, s, dict)) {
+                    dp[i] = 1;
                     return true;
                 }
                 else {
