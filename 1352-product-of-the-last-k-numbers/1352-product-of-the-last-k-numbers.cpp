@@ -1,4 +1,3 @@
-#define ll long long
 class fenwick_tree{
 private:
     vector<long long> BIT;
@@ -39,7 +38,7 @@ public:
     }
     
     int getProduct(int k) {
-        long long product = 1;
+        int product = 1;
         for(int i = 0; i <= 100; i++) {
             if((ft[i].query(timeStamp - 1) - ft[i].query(timeStamp - k - 1)) == 0) {
                 continue;
@@ -47,7 +46,7 @@ public:
             if(product == 0) {
                 break;
             }
-            product *= (long long)powl((ll)i, (ft[i].query(timeStamp - 1) - ft[i].query(timeStamp - k - 1)));
+            product *= powl(i, (ft[i].query(timeStamp - 1) - ft[i].query(timeStamp - k - 1)));
         }
         return product;
     }
