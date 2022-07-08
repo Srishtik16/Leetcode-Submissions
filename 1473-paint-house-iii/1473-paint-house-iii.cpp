@@ -19,6 +19,7 @@ public:
             minCost = min(minCost, recurse(index + 1, newNeighbourCount, houses[index], target, dp));
         }
         else {
+            // not yet coloured
             for(int col = 0; col < cost[0].size(); col++) {
                 int newNeighbourCount = neighbourCount + (col + 1 != prevColor);
                 minCost = min(minCost, cost[index][col] + recurse(index + 1, newNeighbourCount, col + 1, target, dp));
