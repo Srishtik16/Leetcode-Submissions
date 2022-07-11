@@ -8,14 +8,14 @@ public:
         queue<vector<int>> q;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
-                if(grid[i][j] == '*') {
+                if(grid[i][j] == '#') {
                     q.push({0, i, j});
                     vis[{i, j}] = true;
                 }
             }
         }
         auto isValid = [&](int x, int y) {
-            return x >= 0 && y >= 0 && x < n && y < m && (grid[x][y] == 'O' || grid[x][y] == '*' || grid[x][y] == '#');
+            return x >= 0 && y >= 0 && x < n && y < m && grid[x][y] != 'X';
         };
         int steps = 0;
         while(!q.empty()) {
@@ -23,7 +23,7 @@ public:
             while(qs--) {
                 auto u = q.front();
                 q.pop();
-                if(grid[u[1]][u[2]] == '#') {
+                if(grid[u[1]][u[2]] == '*') {
                     return steps;
                 }
                 for(auto &dir: dirs) {
