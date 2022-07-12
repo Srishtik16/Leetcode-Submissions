@@ -34,7 +34,6 @@ public:
             return false;
         }
         target /= k;
-        sort(nums.rbegin(), nums.rend());
         return recurse(0, k, 0, target, nums, n);
     }
 };
