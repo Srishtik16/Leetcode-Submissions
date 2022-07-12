@@ -39,8 +39,6 @@ public:
         int ans = 0;
         for(auto x: logs) {
             ans = max(ans, x[0]);
-            cout << x[1] << " " << x[2] << endl;
-            cout << dsu.components << endl;
             dsu.union_sets(x[1], x[2]);
             if(dsu.components == 1) {
                 ok = true;
