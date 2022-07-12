@@ -35,7 +35,7 @@ public:
             return false;
         }
         target /= k;
-        sort(matchsticks.begin(), matchsticks.end());
+        sort(matchsticks.rbegin(), matchsticks.rend());
         return recurse(0, k, 0, target, matchsticks, n);
     }
 };
