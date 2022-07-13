@@ -1,12 +1,9 @@
 class Solution {
 public:
     const vector<pair<int, int>> dirs = {{0, 1}, {1, 0}};
-    bool isValid(int x, int y, vector<vector<int>> &grid) {
-        return x >= 0 && y >= 0 && x < grid.size() && y < grid[0].size();
-    }
     int recurse(int i1, int j1, int i2, int j2, vector<vector<int>> &grid, int dp[][55][55][55]) {
-        if(!isValid(i1, j1, grid) || !isValid(i2, j2, grid) || grid[i1][j1] == -1 || grid[i2][j2] == -1) {
-            return -99999999;
+        if(j1 < 0 || j1 >= (int)grid[0].size() || j2 < 0 || j2 >= (int)grid[0].size() || i1 < 0 || i1 >= (int)grid.size() || i2 < 0 || i2 >= (int)grid.size() || grid[i1][j1] == -1 || grid[i2][j2] == -1) {
+            return INT_MIN;
         }
         if(i1 == grid.size() - 1 && i2 == grid.size() - 1) {
             if(j1 == grid[0].size() - 1 && j2 == grid[0].size() - 1) {
@@ -16,21 +13,19 @@ public:
         if(dp[i1][j1][i2][j2] != INT_MIN) {
             return dp[i1][j1][i2][j2];
         }
-        int ans = grid[i1][j1];
-        if(i1 == i2 && j1 == j2) {
-            ;
-        }
-        else {
-            ans += grid[i2][j2];
-        }
-        int mx = INT_MIN;
+        int ans = INT_MIN;
         for(auto dir1: dirs) {
             for(auto dir2: dirs) {
-                mx = max(mx, recurse(i1 + dir1.first, j1 + dir1.second, i2 + dir2.first, j2 + dir2.second, grid, dp));
+                if(i1 == i2 && j1 == j2) {
+                    ans = max(ans, recurse(i1 + dir1.first, j1 + dir1.second, i2 + dir2.first, j2 + dir2.second, grid, dp) + (grid[i1][j1] == 1));
+                }
+                else {
+                    ans = max(ans, recurse(i1 + dir1.first, j1 + dir1.second, i2 + dir2.first, j2 + dir2.second, grid, dp) + (grid[i1][j1] == 1) + (grid[i2][j2] == 1));
+                }
             }
         }
-        ans += mx;
-        return dp[i1][j1][i2][j2] = ans;
+        dp[i1][j1][i2][j2] = ans;
+        return ans;
     }
     int cherryPickup(vector<vector<int>>& grid) {
         int dp[55][55][55][55];
