@@ -1,7 +1,6 @@
 class Solution {
 public:
     vector<vector<int>> adj;
-    vector<vector<int>> revAdj;
     vector<int> toposort;
     vector<bool> vis;
     void dfs(int node) {
@@ -23,7 +22,6 @@ public:
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         adj.resize(numCourses);
-        revAdj.resize(numCourses);
         toposort.clear();
         vis.assign(numCourses, false);
         for(auto &edge: prerequisites) {
@@ -31,7 +29,6 @@ public:
                 return false;
             }
             adj[edge[0]].push_back(edge[1]);
-            revAdj[edge[1]].push_back(edge[0]);
         }
         for(int i = 0; i < numCourses; i++) {
             if(!vis[i]) {
