@@ -15,7 +15,7 @@ public:
     }
     void revdfs(int node) {
         vis[node] = true;
-        for(auto x: revAdj[node]) {
+        for(auto x: adj[node]) {
             if(!vis[x]) {
                 revdfs(x);
             }
@@ -38,7 +38,6 @@ public:
                 dfs(i);
             }
         }
-        reverse(toposort.begin(), toposort.end());
         vis.assign(numCourses, false);
         int countScc = 0;
         for(auto &x: toposort) {
