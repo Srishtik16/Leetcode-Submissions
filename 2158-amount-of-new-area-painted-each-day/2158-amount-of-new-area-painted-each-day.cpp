@@ -1,4 +1,4 @@
-using ll = long long;
+using ll = int;
 const ll MaxN = 2e5 + 5;
 class SegmentTree {
 public:
