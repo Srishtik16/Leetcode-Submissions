@@ -1,35 +1,52 @@
 class Solution {
 public:
-    bool canFinish(int n, vector<vector<int>>& edges) {
-        vector<int> inDeg(n + 1, 0);
-        vector<vector<int>> vec(n + 1);
-        for(auto x: edges) {
-            inDeg[x[1]]++;
-            vec[x[0]].push_back(x[1]);
-        }
-        queue<int> q;
-        vector<int> topo;
-        for(int i = 0; i < n; i++) {
-            if(inDeg[i] == 0) {
-                q.push(i);
+    vector<vector<int>> adj;
+    vector<vector<int>> revAdj;
+    vector<int> toposort;
+    vector<bool> vis;
+    void dfs(int node) {
+        vis[node] = true;
+        for(auto x: adj[node]) {
+            if(!vis[x]) {
+                dfs(x);
             }
         }
-        while(!q.empty()) {
-            auto u = q.front();
-            topo.push_back(u);
-            q.pop();
-            for(auto x: vec[u]) {
-                inDeg[x]--;
-                if(inDeg[x] == 0) {
-                    q.push(x);
-                }
+        toposort.push_back(node);
+    }
+    void revdfs(int node) {
+        vis[node] = true;
+        for(auto x: revAdj[node]) {
+            if(!vis[x]) {
+                revdfs(x);
             }
         }
-        if(topo.size() != n) {
-            return false;
+    }
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        adj.resize(numCourses);
+        revAdj.resize(numCourses);
+        toposort.clear();
+        vis.assign(numCourses, false);
+        for(auto &edge: prerequisites) {
+            if(edge[0] == edge[1]) {
+                return false;
+            }
+            adj[edge[0]].push_back(edge[1]);
+            revAdj[edge[1]].push_back(edge[0]);
         }
-        else {
-            return true;
+        for(int i = 0; i < numCourses; i++) {
+            if(!vis[i]) {
+                dfs(i);
+            }
         }
+        reverse(toposort.begin(), toposort.end());
+        vis.assign(numCourses, false);
+        int countScc = 0;
+        for(auto &x: toposort) {
+            if(!vis[x]) {
+                countScc++;
+                revdfs(x);
+            }
+        }
+        return countScc == numCourses;
     }
 };
