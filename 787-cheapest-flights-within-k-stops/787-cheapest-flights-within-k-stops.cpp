@@ -13,6 +13,9 @@ public:
         while(!pq.empty()) {
             auto u = *pq.begin();
             pq.erase(pq.begin());
+            if(u[1] == dst) {
+                return u[0];
+            }
             for(auto x: adj[u[1]]) {
                 if(u[2] + 1 <= k + 1 && dp[x.first][u[2] + 1] == INT_MAX) {
                     dp[x.first][u[2] + 1] = min(dp[u[1]][u[2]] + x.second, dp[x.first][u[2] + 1]);
@@ -26,13 +29,6 @@ public:
                 }
             }
         }
-        int ans = INT_MAX;
-        for(int i = 0; i <= k + 1; i++) {
-            ans = min(ans, dp[dst][i]);
-        }
-        if(ans == INT_MAX) {
-            ans = -1;
-        }
-        return ans;
+        return -1;
     }
 };
