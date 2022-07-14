@@ -13,7 +13,6 @@ public:
             ms.insert({c, 'c'});
         }
         while(!ms.empty()) {
-            cout << ans << endl;
             if(ans.size() ==  a + b + c) {
                 return ans;
             }
@@ -27,12 +26,10 @@ public:
                 }
             }
             else if(ans.back() == f.second && ans[ans.size() - 2] == f.second) {
-                cout << "HERE" << endl;
                 if(ms.empty()) {
                     return ans;
                 }
                 auto ff = *ms.begin();
-                cout << ff.first << " " << ff.second << endl;
                 ans += ff.second;
                 ff.first--;
                 ms.erase(ms.begin());
