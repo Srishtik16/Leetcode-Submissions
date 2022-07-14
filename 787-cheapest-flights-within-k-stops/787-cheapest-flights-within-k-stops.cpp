@@ -17,12 +17,7 @@ public:
                 return u[0];
             }
             for(auto x: adj[u[1]]) {
-                if(u[2] + 1 <= k + 1 && dp[x.first][u[2] + 1] == INT_MAX) {
-                    dp[x.first][u[2] + 1] = min(dp[u[1]][u[2]] + x.second, dp[x.first][u[2] + 1]);
-                    vector<int> v = {dp[x.first][u[2] + 1], x.first, u[2] + 1};
-                    pq.insert(v);
-                }
-                else if(u[2] + 1 <= k + 1 && dp[x.first][u[2] + 1] > dp[u[1]][u[2]] + x.second) {
+                if(u[2] + 1 <= k + 1 && dp[x.first][u[2] + 1] > dp[u[1]][u[2]] + x.second) {
                     dp[x.first][u[2] + 1] = min(dp[u[1]][u[2]] + x.second, dp[x.first][u[2] + 1]);
                     vector<int> v = {dp[x.first][u[2] + 1], x.first, u[2] + 1};
                     pq.insert(v);
