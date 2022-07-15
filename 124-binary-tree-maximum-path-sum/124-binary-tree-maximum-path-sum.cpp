@@ -15,12 +15,10 @@ public:
         if(root == NULL) {
             return 0;
         }
-        int left = dfs(root -> left, ans);
-        int right = dfs(root -> right, ans);
-        left = max(left, 0);
-        right = max(right, 0);
-        ans = max(ans, root -> val + left + right);
-        return (root -> val) + max(left, right);
+        int left = max(dfs(root -> left, ans), 0);
+        int right = max(dfs(root -> right, ans), 0);
+        ans = max(ans, left + right + root -> val);
+        return max(left, right) + root -> val;
     }
     int maxPathSum(TreeNode* root) {
         int ans = INT_MIN;
