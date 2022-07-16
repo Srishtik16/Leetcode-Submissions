@@ -9,10 +9,6 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        // Keep 2 pointers at head of the 2 lists
-        // Move them forward by 1
-        // If any pointer reaches end of list. start it from head of other list
-        // Loop continues till both pointer points to same node which will be our intersection node
         ListNode* ha = headA;
         ListNode* hb = headB;
         while(ha != hb) {
