@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        map<char, int> hash, hashp;
+        unordered_map<char, int> hash, hashp;
         int n = s.size();
         int m = p.size();
         int l = 0, r = m - 1;
