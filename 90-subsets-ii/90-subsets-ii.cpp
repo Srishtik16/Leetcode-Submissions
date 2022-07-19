@@ -1,23 +1,25 @@
 class Solution {
+    map<vector<int>, bool> m;
 public:
-    void recurse(vector<vector<int>> &ans, vector<int> &aux, int index, vector<int> &a) {
+    void subsets(int index, vector<vector<int>> &ans, vector<int> &curr, vector<int> &a) {
         if(index == (int)a.size()) {
-            vector<int> copy = aux;
-            sort(copy.begin(), copy.end());
-            if(find(ans.begin(), ans.end(), copy) == ans.end()) {
-                ans.push_back(copy);
+            if(m.find(curr) == m.end()) {
+                ans.push_back(curr);
+                m[curr] = 1;
             }
             return;
         }
-        aux.push_back(a[index]);
-        recurse(ans, aux, index + 1, a);
-        aux.pop_back();
-        recurse(ans, aux, index + 1, a);
+        curr.push_back(a[index]);
+        subsets(index + 1, ans, curr, a);
+        curr.pop_back();
+        subsets(index + 1, ans, curr, a);
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        m.clear();
         vector<vector<int>> ans;
-        vector<int> aux;
-        recurse(ans, aux, 0, nums);
+        vector<int> curr;
+        subsets(0, ans, curr, nums);
         return ans;
     }
 };
