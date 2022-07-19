@@ -2,10 +2,12 @@ class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp = nums;
+        int prev = nums[0], curr = 0, ans = prev;
         for(int i = 1; i < n; i++) {
-            dp[i] = max(dp[i - 1] + nums[i], dp[i]);
+            curr = max(prev + nums[i], nums[i]);
+            prev = curr;
+            ans = max(ans, prev);
         }
-        return *max_element(dp.begin(), dp.end());
+        return ans;
     }
 };
