@@ -1,8 +1,13 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(), s.end());
-        sort(t.begin(), t.end());
-        return s == t;
+        vector<int> cs(26), ct(26);
+        for(char c: s) {
+            cs[c - 'a']++;
+        }
+        for(char c: t) {
+            ct[c - 'a']++;
+        }
+        return cs == ct;
     }
 };
