@@ -12,9 +12,6 @@ public:
         for(auto x: words1) {
             ans += m1[x] == 1 && m2[x] == 1;
         }
-        for(auto x: words2) {
-            ans += m1[x] == 1 && m2[x] == 1;
-        }
-        return ans / 2;
+        return ans;
     }
 };
