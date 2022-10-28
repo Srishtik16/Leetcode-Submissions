@@ -70,7 +70,7 @@ public:
             for(int j = 0; j < n; j++) {
                 if(grid[i][j] == 0) {
                     int island = 1;
-                    set<int> s;
+                    unordered_set<int> s;
                     if(isValid(i + 1, j) && grid[i + 1][j] == 1) {
                         s.insert(UF.find(cellNo(i + 1, j)));
                     }
