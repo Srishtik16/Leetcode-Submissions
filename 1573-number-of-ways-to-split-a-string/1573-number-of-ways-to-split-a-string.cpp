@@ -203,15 +203,6 @@ public:
             }
         }
         int l = p1 + 1, r = l;
-        vector<int> pref(n);
-        pref[0] = s[0] == '0' ? 0 : 1;
-        for(int i = 1; i < n; i++) {
-            pref[i] = pref[i - 1] + (s[i] == '0' ? 1: 0);
-        }
-        auto range = [&](int l, int r) {
-            return pref[r] - (l > 0 ? pref[l - 1] : 0);
-        };
-        cout << p1 << " " << p2 << endl;
         int sum = 0, ans = INT_MAX;
         pair<int, int> p = {-1, -1};
         while(l <= r && r < p2) {
@@ -226,11 +217,8 @@ public:
             }
             r++;
         }
-        cout << p1 << " " << p2 << endl;
-        cout << p.first << " " << p.second << endl;
         Mint res = p.first - p1;
         res *= p2 - p.second;
-        cout << res << endl;
         return (int)res;
     }
 };
