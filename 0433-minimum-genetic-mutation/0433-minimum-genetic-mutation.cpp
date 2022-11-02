@@ -1,23 +1,21 @@
 class Solution {
 public:
-    vector<int> bfs(vector<vector<int>> &adj, int s, int n, int target) {
+    int _n;
+    vector<int> bfs(vector<vector<int>> &adj, int node) {
+        vector<bool> vis(_n, false);
+        vector<int> d(_n, INT_MAX);
+        d[node] = 0;
+        vis[node] = true;
         queue<int> q;
-        vector<bool> used(n + 1);
-        vector<int> d(n + 1, 1e9), p(n + 1);
-
-        q.push(s);
-        used[s] = true;
-        p[s] = -1;
-        d[s] = 0;
-        while (!q.empty()) {
-            int v = q.front();
+        q.push(node);
+        while(!q.empty()) {
+            int u = q.front();
             q.pop();
-            for (int u : adj[v]) {
-                if (!used[u]) {
-                    used[u] = true;
-                    q.push(u);
-                    d[u] = min(d[u], d[v] + 1);
-                    p[u] = v;
+            for(auto x: adj[u]) {
+                if(!vis[x]) {
+                    vis[x] = true;
+                    d[x] = d[u] + 1;
+                    q.push(x);
                 }
             }
         }
@@ -27,32 +25,28 @@ public:
         if(find(bank.begin(), bank.end(), end) == bank.end() && start != end) {
             return -1;
         }
-        bank.insert(bank.begin(), start);
         int n = bank.size();
-        vector<vector<int>> vec(n + 1);
-        auto check = [&] (string s, string t) {
-            int n = s.size();
+        auto check = [&](string s, string t) {
             int cnt = 0;
-            for(int i = 0; i < n; i++) {
+            for(int i = 0; i < s.size(); i++) {
                 cnt += s[i] != t[i];
             }
-            return cnt <= 1;
+            return cnt == 1;
         };
+        bank.insert(bank.begin(), start);
+        n++;
+        _n = n;
+        vector<vector<int>> adj(n);
         for(int i = 0; i < n; i++) {
             for(int j = i + 1; j < n; j++) {
                 if(check(bank[i], bank[j])) {
-                    vec[i].push_back(j);
-                    vec[j].push_back(i);
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
                 }
             }
         }
-        int target = find(bank.begin(), bank.end(), end) - bank.begin();
-        auto d = bfs(vec, 0, n, target);
-        if(d[target] == 1e9) {
-            return -1;
-        }
-        else {
-            return d[target];
-        }
+        int index = find(bank.begin(), bank.end(), end) - bank.begin();
+        vector<int> d = bfs(adj, 0);
+        return d[index] == INT_MAX ? -1 : d[index];
     }
 };
