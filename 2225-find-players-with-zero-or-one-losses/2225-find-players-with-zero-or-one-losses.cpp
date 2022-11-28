@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
         vector<vector<int>> ans(2);
-        unordered_map<int, int> indeg;
+        map<int, int> indeg;
         for(auto x: matches) {
             indeg[x[0]] = indeg[x[0]];
             indeg[x[1]]++;
