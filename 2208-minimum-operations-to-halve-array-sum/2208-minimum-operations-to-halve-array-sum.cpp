@@ -15,7 +15,7 @@ public:
             val -= rem;
             sum += rem;
             ops++;
-            if(sum * 2 * 1000 >= ans * 1000) {
+            if(sum * 2 >= ans) {
                 break;
             }
             if(val > 1) {
