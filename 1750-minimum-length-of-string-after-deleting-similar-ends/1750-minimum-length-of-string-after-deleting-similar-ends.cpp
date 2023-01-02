@@ -2,17 +2,19 @@ class Solution {
 public:
     int minimumLength(string s) {
         int n = s.size();
-        int l = 0, r = n - 1;
-        while(l < r && s[l] == s[r]) {
-            while(l < r && s[l] == s[l + 1]) {
-                l++;
+        deque<char> dq(s.begin(), s.end());
+        int moves = 0;
+        while(dq.size() > 1 && dq.front() == dq.back()) {
+            char c = dq.front();
+            while(!dq.empty() && dq.front() == c) {
+                moves++;
+                dq.pop_front();
             }
-            l++;
-            while(l < r && s[r] == s[r - 1]) {
-                r--;
+            while(!dq.empty() && dq.back() == c) {
+                moves++;
+                dq.pop_back();
             }
-            r--;
         }
-        return l > r ? 0 : r - l + 1;
+        return n - moves;
     }
 };
