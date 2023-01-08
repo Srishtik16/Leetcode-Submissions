@@ -1,10 +1,7 @@
 class Solution {
 public:
     int maxPoints(vector<vector<int>>& points) {
-        int n = points.size(), ans = 0;
-        if(n == 1) {
-            return 1;
-        }
+        int n = points.size(), ans = 1;
         for(int i = 0; i < n; i++) {
             map<long double, int> m;
             for(int j = 0; j < n; j++) {
