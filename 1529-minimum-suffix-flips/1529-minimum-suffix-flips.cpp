@@ -1,20 +1,20 @@
 class Solution {
 public:
-    int minFlips(string s) {
-        int n = s.size();
-        string a(n, '0');
-        int par = 0, moves = 0;
+    int minFlips(string target) {
+        int n = target.size();
+        bool parity = false; // false -> even, true -> odd
+        int moves = 0;
         for(int i = 0; i < n; i++) {
-            if(par == 0) {
-                if(s[i] != '0') {
+            if(parity) {
+                if(target[i] == '0') {
+                    parity ^= 1;
                     moves++;
-                    par ^= 1;
-                }
+                } 
             }
             else {
-                if(s[i] == '0') {
+                if(target[i] == '1') {
+                    parity ^= 1;
                     moves++;
-                    par ^= 1;
                 }
             }
         }
