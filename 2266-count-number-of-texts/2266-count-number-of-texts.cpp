@@ -15,10 +15,10 @@ public:
                     }
                     sort(s.begin(), s.end());
                     if(s.front() != s.back()) {
-                        continue;
+                        break;
                     }
                     if(s.size() == 4 && s.front() != '7' && s.front() != '9') {
-                        continue;
+                        break;
                     }
                     dp[i] += dp[i - j];
                     dp[i] %= MOD;
