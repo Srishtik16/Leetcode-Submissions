@@ -1,28 +1,37 @@
 class Solution {
 public:
-    void dfs(int node, vector<int> vec[], vector<bool> &has, vector<bool> &vis, vector<int> &dp) {
+    void dfs(int node, vector<vector<int>> &adj, vector<bool> &vis, vector<int> &dp, vector<bool> &hasApple) {
         vis[node] = true;
-        dp[node] = has[node];
-        for(auto x: vec[node]) {
+        dp[node] = hasApple[node];
+        for(auto x: adj[node]) {
             if(!vis[x]) {
-                dfs(x, vec, has, vis, dp);
+                dfs(x, adj, vis, dp, hasApple);
                 dp[node] += dp[x];
             }
         }
     }
+    void dfs(int node, vector<vector<int>> &adj, vector<bool> &vis, vector<int> &dp, int &ans) {
+        vis[node] = true;
+        for(auto x: adj[node]) {
+            if(!vis[x] && dp[x]) {
+                dfs(x, adj, vis, dp, ans);
+                ans++;
+            }
+        }
+    }
     int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) {
-        vector<int> vec[n + 1];
-        for(auto x: edges) {
-            vec[x[0]].push_back(x[1]);
-            vec[x[1]].push_back(x[0]);
+        vector<vector<int>> adj(n);
+        vector<bool> vis(n, false);
+        for(auto &edge: edges) {
+            adj[edge[0]].push_back(edge[1]);
+            adj[edge[1]].push_back(edge[0]);
         }
-        vector<int> dp(n + 1, 0);
-        vector<bool> vis(n + 1, false);
-        dfs(0, vec, hasApple, vis, dp);
+        vector<int> dp(n);
+        dfs(0, adj, vis, dp, hasApple);
+        vis.assign(n, false);
         int ans = 0;
-        for(int i = 1; i < n; i++) {
-            ans += dp[i] ? 2 : 0;
-        }
+        dfs(0, adj, vis, dp, ans);
+        ans *= 2;
         return ans;
     }
 };
