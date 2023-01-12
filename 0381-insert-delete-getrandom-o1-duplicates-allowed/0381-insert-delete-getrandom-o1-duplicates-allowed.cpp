@@ -21,7 +21,7 @@ public:
     }
     
     bool remove(int val) {
-        if(m.find(val) == m.end() || m[val].empty()) {
+        if(m.find(val) == m.end()) {
             return false;
         }
         auto index = *m[val].begin();
