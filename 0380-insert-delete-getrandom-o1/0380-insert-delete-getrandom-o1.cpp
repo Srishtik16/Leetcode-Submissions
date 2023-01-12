@@ -1,34 +1,38 @@
+#define random(l,r,T)    uniform_int_distribution<T>(l,r)(rng)
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 class RandomizedSet {
 public:
-    vector<int> nums;
-    unordered_map<int, int> found;
+    vector<int> v;
+    map<int, int> m;
     RandomizedSet() {
-        ;
+        v.clear();
+        m.clear();
     }
     
     bool insert(int val) {
-        if(found.find(val) == found.end()) {
-            nums.push_back(val);
-            found[val] = nums.size() - 1;
-            return true;
+        if(m.find(val) != m.end()) {
+            return false;
         }
-        return false;
+        v.push_back(val);
+        m[val] = (int)size(v) - 1;
+        return true;
     }
     
     bool remove(int val) {
-        if(found.find(val) == found.end()) {
+        if(m.find(val) == m.end()) {
             return false;
         }
-        int last = nums.back();
-        found[last] = found[val];
-        nums[found[val]] = last;
-        nums.pop_back();
-        found.erase(val);
+        int index = m[val];
+        swap(v[index], v.back());
+        swap(m[v[index]], m[v.back()]);
+        v.pop_back();
+        m.erase(val);
         return true;
     }
     
     int getRandom() {
-        return nums[rand() % (nums.size())];
+        int rnd = random(0, (int)size(v) - 1, int);
+        return v[rnd];
     }
 };
 
