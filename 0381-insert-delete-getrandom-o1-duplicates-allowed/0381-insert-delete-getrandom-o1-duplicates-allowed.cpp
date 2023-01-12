@@ -3,7 +3,7 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 class RandomizedCollection {
 public:
     vector<int> v;
-    map<int, set<int>> m;
+    map<int, unordered_set<int>> m;
     RandomizedCollection() {
         v.clear();
         m.clear();
