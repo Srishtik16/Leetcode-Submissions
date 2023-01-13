@@ -47,7 +47,6 @@ public:
                     r = mid - 1;
                 }
             }
-            // cout << i << " " << ans << " " << query(0, 0, n - 1, i, ans) << endl;
             for(int k = ans - 3; k <= ans + 3; k++) {
                 int qry = query(0, 0, n - 1, i, k);
                 res = min(res, abs(target - qry));
