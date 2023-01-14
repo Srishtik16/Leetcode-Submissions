@@ -1,39 +1,32 @@
 class Solution {
 public:
-    int recurse(int i, int j1, int j2, vector<vector<int>> &grid, vector<vector<vector<int>>> &dp) {
-        // Base Cases
-        if(j1 < 0 || j1 >= (int)grid[0].size() || j2 < 0 || j2 >= (int)grid[0].size()) {
-            return 0;
-        }
-        if(i == (int)grid.size() - 1) {
-            if(j1 == j2) {
-                return grid[i][j1];
-            }
-            else {
-                return grid[i][j1] + grid[i][j2];
-            }
-        }
-        if(dp[i][j1][j2] != -1) {
-            return dp[i][j1][j2];
-        }
-        // Transitions
-        int ans = 0;
-        for(int x = -1; x <= 1; x++) {
-            for(int y = -1; y <= 1; y++) {
-                if(j1 == j2) {
-                    ans = max(ans, recurse(i + 1, j1 + x, j2 + y, grid, dp) + grid[i][j1]);
-                }
-                else {
-                    ans = max(ans, recurse(i + 1, j1 + x, j2 + y, grid, dp) + grid[i][j1] + grid[i][j2]);
-                }
-            }
-        }
-        return dp[i][j1][j2] = ans;
-    }
     int cherryPickup(vector<vector<int>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        vector<vector<vector<int>>> dp(n + 1, vector<vector<int>> (m + 1, vector<int>(m + 1, -1)));
-        return recurse(0, 0, (int)grid[0].size() - 1, grid, dp);
+        vector<vector<vector<int>>> dp(n, vector<vector<int>>(m, vector<int>(m, -1)));
+        dp[0][0][m - 1] = grid[0][0] + grid[0][m - 1];
+        int ans = dp[0][0][m - 1];
+        for(int i = 1; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                for(int k = 0; k < m; k++) {
+                    if(dp[i - 1][j][k] == -1) {
+                        continue;
+                    }
+                    for(int x = -1; x <= 1; x++) {
+                        for(int y = -1; y <= 1; y++) {
+                            if(j + x >= 0 && k + y >= 0 && j + x < m && k + y < m) {
+                                dp[i][j + x][k + y] = max(dp[i][j + x][k + y], dp[i - 1][j][k] + ((j + x == k + y) ? grid[i][j + x] : grid[i][j + x] + grid[i][k + y]));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < m; j++) {
+                ans = max(ans, dp[n - 1][i][j]);
+            }
+        }
+        return ans;
     }
 };
