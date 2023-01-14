@@ -4,26 +4,31 @@ public:
         int n = grid.size();
         int m = grid[0].size();
         using ll = long long;
-        vector<vector<ll>> dp(n, vector<ll>(m, 0));
-        dp[0][0] = 1 - grid[0][0];
+        vector<ll> dp(m, 0);
+        dp[0] = 1 - grid[0][0];
         for(int i = 0; i < n; i++) {
+            vector<ll> new_dp(m, 0);
+            if(i == 0) {
+                new_dp = dp;
+            }
             for(int j = 0; j < m; j++) {
                 if(i == 0 && j == 0) {
                     continue;
                 }
                 if(grid[i][j]) {
-                    dp[i][j] = 0;
+                    new_dp[j] = 0;
                 }
                 else {
                     if(i - 1 >= 0) {
-                        dp[i][j] += dp[i - 1][j];
+                        new_dp[j] += dp[j];
                     }
                     if(j - 1 >= 0) {
-                        dp[i][j] += dp[i][j - 1];
+                        new_dp[j] += new_dp[j - 1];
                     }
                 }
             }
+            dp.swap(new_dp);
         }
-        return dp[n - 1][m - 1];
+        return dp[m - 1];
     }
 };
