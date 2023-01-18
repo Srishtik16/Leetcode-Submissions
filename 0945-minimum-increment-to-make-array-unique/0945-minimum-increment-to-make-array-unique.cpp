@@ -22,7 +22,6 @@ public:
                 }
                 moves += abs(i - *ms.begin());
                 ms.erase(ms.begin());
-                vis[i] = true;
             }
         }
         return moves;
