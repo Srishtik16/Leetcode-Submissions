@@ -12,7 +12,6 @@ public:
         int n = par.size();
         vector<vector<int>> adj(n);
         for(int i = 1; i < n; i++) {
-            // adj[i].push_back(par[i]);
             adj[par[i]].push_back(i);
         }
         vector<int> dp(n, 1);
