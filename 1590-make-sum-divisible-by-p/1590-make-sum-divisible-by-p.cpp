@@ -21,6 +21,7 @@ public:
         if(sum == 0) {
             return 0;
         }
-        return subarraysDivByK(nums, p, sum) >= size(nums) ? -1 : subarraysDivByK(nums, p, sum);
+        int ans = subarraysDivByK(nums, p, sum);
+        return ans >= size(nums) ? -1 : ans;
     }
 };
