@@ -26,10 +26,6 @@ public:
             product *= ((n - dp[i]) == 0 ? 1 : (n - dp[i]));
             ans.push_back(product);
         }
-        for(auto x: ans) {
-            cout << x << " ";
-        }
-        cout << endl;
         int res = count(ans.begin(), ans.end(), *max_element(ans.begin(), ans.end()));
         return res;
     }
