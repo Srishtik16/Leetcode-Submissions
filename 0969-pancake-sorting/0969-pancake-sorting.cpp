@@ -16,7 +16,6 @@ public:
             ans.push_back(i);
             reverse(arr.begin(), arr.begin() + i);
         }
-        assert(is_sorted(arr.begin(), arr.end()));
         return ans;
     }
 };
