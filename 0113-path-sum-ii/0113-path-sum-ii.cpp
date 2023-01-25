@@ -16,11 +16,17 @@ public:
             return;
         }
         ans.push_back(root -> val);
-        if(root -> left == NULL && root -> right == NULL && sum == root -> val) {
-            res.push_back(ans);
+        if(root -> left == NULL && root -> right == NULL) {
+            int s = 0;
+            for(auto x: ans) {
+                s += x;
+            }
+            if(s == sum) {
+                res.push_back(ans);
+            }
         }
-        dfs(root -> left, sum - root -> val, ans, res);
-        dfs(root -> right, sum - root -> val, ans, res);
+        dfs(root -> left, sum, ans, res);
+        dfs(root -> right, sum, ans, res);
         ans.pop_back();
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
