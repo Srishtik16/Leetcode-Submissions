@@ -21,9 +21,6 @@ public:
             string t = toBinary(q[0] ^ q[1]);
             m[t].push_back(index++);
         }
-        for(auto i: m["110"]) {
-            cout << i << endl;
-        }
         for(int window = 1; window <= min(32, n); window++) {
             string t = "";
             for(int i = 0; i < window; i++) {
