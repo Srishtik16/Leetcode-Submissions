@@ -39,7 +39,7 @@ public:
         }
         else {
             int wordsNotFromt = r - l + 1;
-            if((int)sw.size() - (int)tw.size() >= wordsNotFromt || l == tw.size() || (int)sw.size() - 1 - (int)tw.size() == r) {
+            if((int)sw.size() - (int)tw.size() >= wordsNotFromt) {
                 return true;
             }
             else {
