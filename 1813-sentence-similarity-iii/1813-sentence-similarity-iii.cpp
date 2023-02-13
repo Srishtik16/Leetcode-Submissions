@@ -34,7 +34,6 @@ public:
             tw.pop_back();
         }
         int l = i, r = (int)sw.size() - 1;
-        cout << l << " " << r << endl;
         if(l > r) {
             return true;
         }
