@@ -29,10 +29,6 @@ public:
     }
     long long minimalKSum(vector<int>& nums, int k) {
         sort(nums.begin(), nums.end());
-        for(auto x: nums) {
-            cout << x << " ";
-        }
-        cout << endl;
         int n = nums.size();
         vector<vector<int>> intervals;
         for(int i = 1; i < n; i++) {
@@ -54,9 +50,6 @@ public:
         for(auto x: intervals) {
             int need = min(x[1] - x[0] + 1, k);
             int l = x[0], r = l + need - 1;
-            cout << x[0] << " " << x[1] << endl;
-            cout << l << " " << r << endl;
-            cout << k << endl;
             if(k == 0) {
                 break;
             }
