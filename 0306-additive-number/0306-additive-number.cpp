@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool checkAdditiveNumber(string& num, int currentIndex, long long firstNum, long long secondNum, int count) {
+    bool recurse(string& num, int currentIndex, long long firstNum, long long secondNum, int count) {
         if (currentIndex == num.length()) {
             return count > 2;
         }
@@ -14,9 +14,9 @@ public:
 
             bool isValidAdditiveNumber = false;
             if (count < 2) {
-                isValidAdditiveNumber = checkAdditiveNumber(num, i + 1, secondNum, currentNum, count + 1);
+                isValidAdditiveNumber = recurse(num, i + 1, secondNum, currentNum, count + 1);
             } else if (firstNum + secondNum == currentNum) {
-                isValidAdditiveNumber = checkAdditiveNumber(num, i + 1, secondNum, currentNum, count + 1);
+                isValidAdditiveNumber = recurse(num, i + 1, secondNum, currentNum, count + 1);
             }
 
             if (isValidAdditiveNumber) {
@@ -31,6 +31,6 @@ public:
         return false;
     }
     bool isAdditiveNumber(string num) {
-        return checkAdditiveNumber(num, 0, 0, 0, 0);
+        return recurse(num, 0, 0, 0, 0);
     }
 };
