@@ -1,25 +1,35 @@
 class Solution {
-    public boolean getFibo(String s, int i, long a, long b, int n) {
-        if (i == s.length())
-            return n > 2;
-
-        long num = 0;
-        for (int x = i; x < s.length(); x++) {
-            if (num > Math.pow(10, 17)) break;
-            num = num * 10 + (s.charAt(x) - '0');
-            boolean chk = false;
-            if (n < 2)
-                chk = getFibo(s, x + 1, b, num, n + 1);
-            else if (a + b == num)
-                chk = getFibo(s, x + 1, b, num, n + 1);
-            if (chk)
-                return true;
-            if (num == 0)
-                break;
+    public boolean recurse(String num, int currentIndex, long firstNum, long secondNum, int count) {
+        if (currentIndex == num.length()) {
+            return count > 2;
         }
+
+        long currentNum = 0;
+        for (int i = currentIndex; i < num.length(); i++) {
+            if (currentNum > Math.pow(10, 17)) {
+                break;
+            }
+            currentNum = currentNum * 10 + (num.charAt(i) - '0');
+
+            boolean isValidAdditiveNumber = false;
+            if (count < 2) {
+                isValidAdditiveNumber = recurse(num, i + 1, secondNum, currentNum, count + 1);
+            } else if (firstNum + secondNum == currentNum) {
+                isValidAdditiveNumber = recurse(num, i + 1, secondNum, currentNum, count + 1);
+            }
+
+            if (isValidAdditiveNumber) {
+                return true;
+            }
+
+            if (currentNum == 0) {
+                break;
+            }
+        }
+
         return false;
     }
     public boolean isAdditiveNumber(String num) {
-        return getFibo(num, 0, 0, 0, 0);
+        return recurse(num, 0, 0, 0, 0);
     }
 }
