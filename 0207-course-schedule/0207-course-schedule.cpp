@@ -1,30 +1,38 @@
 class Solution {
 public:
+    vector<vector<int>> adj;
+    vector<bool> vis;
+    vector<int> path; // needs to lie on same path (that makes it separate from undirected case)
+    bool cycle;
+    void dfs(int node) {
+        vis[node] = true;
+        path[node] = 1;
+        for(auto x: adj[node]) {
+            if(!vis[x]) {
+                dfs(x);
+            } 
+            if(vis[x] && path[x]) {
+                cycle = true;
+            }
+        }
+        path[node] = 0;
+    }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
-        vector<int> inDeg(numCourses, 0);
+        adj.clear();
+        vis.clear();
+        path.clear();
+        adj.resize(numCourses);
+        vis.resize(numCourses);
+        path.resize(numCourses);
         for(auto x: prerequisites) {
-            inDeg[x[1]]++;
             adj[x[0]].push_back(x[1]);
         }
-        queue<int> q;
+        cycle = false;
         for(int i = 0; i < numCourses; i++) {
-            if(inDeg[i] == 0) {
-                q.push(i);
+            if(!vis[i]) {
+                dfs(i);
             }
         }
-        int sz = 0;
-        while(!q.empty()) {
-            int node = q.front();
-            sz++;
-            q.pop();
-            for(auto x: adj[node]) {
-                inDeg[x]--;
-                if(inDeg[x] == 0) {
-                    q.push(x);
-                }
-            }
-        }
-        return sz == numCourses;
+        return !cycle;
     }
 };
