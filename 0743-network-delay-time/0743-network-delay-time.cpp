@@ -2,25 +2,28 @@ class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
         vector<vector<vector<int>>> adj(n);
-        for(auto x: times) {
-            vector<int> to = {x[1] - 1, x[2]};
-            adj[x[0] - 1].push_back(to);
+        for(auto time: times) {
+            int u = time[0], v = time[1], w = time[2];
+            u--;
+            v--;
+            adj[u].push_back({v, w});
         }
         k--;
         vector<int> d(n, INT_MAX);
-        set<vector<int>> s;
-        s.insert({0, k});
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
+        pq.push({0, k});
         d[k] = 0;
-        while(!s.empty()) {
-            int node = (*s.begin())[1];
-            s.erase(s.begin());
+        while(!pq.empty()) {
+            int dist = pq.top()[0];
+            int node = pq.top()[1];
+            pq.pop();
+            if(d[node] != dist) {
+                continue;
+            }
             for(auto child: adj[node]) {
-                int to = child[0];
-                int weight = child[1];
-                if(d[to] > d[node] + weight) {
-                    s.erase({d[to], to});
-                    d[to] = d[node] + weight;
-                    s.insert({d[to], to});
+                if(d[child[0]] > d[node] + child[1]) {
+                    d[child[0]] = d[node] + child[1];
+                    pq.push({d[child[0]], child[0]});
                 }
             }
         }
