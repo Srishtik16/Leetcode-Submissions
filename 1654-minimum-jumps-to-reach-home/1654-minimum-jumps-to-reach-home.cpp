@@ -3,7 +3,6 @@ public:
     int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
         // Note: node is uniquely represented by {val, direction}
         // Amazing point to consider while doing BFS
-        int steps = 7e5;
         queue<pair<int, int>> q;
         map<pair<int, int>, bool> vis;
         q.push({0, 1});
@@ -17,9 +16,6 @@ public:
         };
         while(!q.empty()) {
             int qs = q.size();
-            if(steps == 0) {
-                break;
-            }
             while(qs--) {
                 int node = q.front().first;
                 int prevMove = q.front().second;
@@ -56,7 +52,6 @@ public:
                 }
             }
             d++;
-            steps--;
         }
         return -1;
     }
