@@ -1,17 +1,19 @@
 class Solution {
 public:
     int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
-        int steps = 8e3;
+        // Note: node is uniquely represented by {val, direction}
+        // Amazing point to consider while doing BFS
+        int steps = 7e5;
         queue<pair<int, int>> q;
-        map<int, bool> vis;
-        q.push({0, -1});
-        vis[0] = true;
+        map<pair<int, int>, bool> vis;
+        q.push({0, 1});
+        vis[{0, 1}] = true;
+        int d = 0;
         if(x == 0) {
             return 0;
         }
-        int d = 0;
-        auto isValid = [&](int node) {
-            return node >= 0 && node <= 1e4 && vis.find(node) == vis.end() && find(forbidden.begin(), forbidden.end(), node) == forbidden.end();
+        auto isValid = [&](int node, int state) {
+            return node >= 0 && node <= 1e4 && vis.find({node, state}) == vis.end() && find(forbidden.begin(), forbidden.end(), node) == forbidden.end();
         };
         while(!q.empty()) {
             int qs = q.size();
@@ -21,10 +23,6 @@ public:
             while(qs--) {
                 int node = q.front().first;
                 int prevMove = q.front().second;
-                if(true) {
-                    vis[node] = true;
-                }
-                //cout << node << " " << prevMove << endl;
                 q.pop();
                 if(node == x) {
                     return d + 1;
@@ -35,24 +33,24 @@ public:
                     if(newIndex == x) {
                         return d + 1;
                     }
-                    if(isValid(newIndex)) {
-                        vis[newIndex] = true;
+                    if(isValid(newIndex, 1)) {
+                        vis[{newIndex, 1}] = true;
                         q.push({newIndex, 1}); // Forward jump to reach here
                     }
                 }
                 else {
-                    if(isValid(node + a)) {
+                    if(isValid(node + a, 1)) {
                         if(node + a == x) {
                             return d + 1;
                         }
-                        vis[node + a] = true;
+                        vis[{node + a, 1}] = true;
                         q.push({node + a, 1}); // Forward jump to reach here
                     }
-                    if(isValid(node - b)) {
+                    if(isValid(node - b, 0)) {
                         if(node - b == x) {
                             return d + 1;
                         }
-                        //vis[node - b] = true;
+                        vis[{node - b, 0}] = true;
                         q.push({node - b, 0}); // Backward jump to reach here
                     }
                 }
