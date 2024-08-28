@@ -77,17 +77,6 @@ public:
         int n = arr.size();
         vector<int> left = closest_left(arr, greater_equal<int>());
         vector<int> right = closest_right(arr, greater_equal<int>());
-        for(int i = 0; i < n; i++) {
-            cout << i << " " << left[i] << " " << right[i] << endl;
-        }
-        // for(int i = 0; i < n; i++) {
-        //     if(arr[left[i]] == arr[i]) {
-        //         left[i] = i;
-        //     }
-        //     if(arr[right[i]] == arr[i]) {
-        //         right[i] = i;
-        //     }
-        // }
         SegmentTree st(n + 1);
         vector<int> dp(n);
         // Process in order of smallest element first
@@ -111,10 +100,6 @@ public:
             dp[order[i]] = bestq > -1 ? 1 + bestq : 1;
             st.update(0, order[i], dp[order[i]], 0, n - 1);
         }
-        for(auto x: dp) {
-            cout << x << " ";
-        }
-        cout << endl;
         return *max_element(dp.begin(), dp.end());
     }
 };
