@@ -90,13 +90,7 @@ public:
             int r = min(order[i] + d + 1, right[order[i]]);
             int ql = st.query(0, 0, n - 1, l + 1, order[i] - 1);
             int qr = st.query(0, 0, n - 1, order[i] + 1, r - 1);
-            int bestq = 0;
-            if(ql > -1) {
-                bestq = ql;
-            }
-            if(qr > -1) {
-                bestq = max(bestq, qr);
-            }
+            int bestq = max({0, ql, qr});
             dp[order[i]] = 1 + bestq;
             st.update(0, order[i], dp[order[i]], 0, n - 1);
         }
