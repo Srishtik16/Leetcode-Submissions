@@ -35,30 +35,13 @@ public:
     int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
         int n = grid1.size();
         int m = grid1[0].size();
-        DSU dsu1(n * m), dsu2(n * m);
+        DSU dsu(n * m);
         auto cellNo = [&](int i, int j) {
             return i * m + j;
         };
-        auto isValid1 = [&](int i, int j) {
-            return i >= 0 && i < n && j >= 0 && j < m && grid1[i][j] == 1;
-        };
-        auto isValid2 = [&](int i, int j) {
+        auto isValid = [&](int i, int j) {
             return i >= 0 && i < n && j >= 0 && j < m && grid2[i][j] == 1;
         };
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(grid1[i][j] != 1) {
-                    continue;
-                }
-                int cno = cellNo(i, j);
-                for(auto x: dirs) {
-                    if(isValid1(i + x[0], j + x[1])) {
-                        int ncno = cellNo(i + x[0], j + x[1]);
-                        dsu1.unite(cno, ncno);
-                    }
-                }
-            }
-        }
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
                 if(grid2[i][j] != 1) {
@@ -66,9 +49,9 @@ public:
                 }
                 int cno = cellNo(i, j);
                 for(auto x: dirs) {
-                    if(isValid2(i + x[0], j + x[1])) {
+                    if(isValid(i + x[0], j + x[1])) {
                         int ncno = cellNo(i + x[0], j + x[1]);
-                        dsu2.unite(cno, ncno);
+                        dsu.unite(cno, ncno);
                     }
                 }
             }
@@ -77,15 +60,15 @@ public:
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
                 if(grid1[i][j] == 0 && grid2[i][j] == 1) {
-                    bad[dsu2.find(cellNo(i, j))] = 1;
+                    bad[dsu.find(cellNo(i, j))] = 1;
                 }
             }
         }
         set<int> ans;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
-                if(grid2[i][j] && !bad[dsu2.find(cellNo(i, j))]) {
-                    ans.insert(dsu2.find(cellNo(i, j)));
+                if(grid2[i][j] && !bad[dsu.find(cellNo(i, j))]) {
+                    ans.insert(dsu.find(cellNo(i, j)));
                 }
             }
         }
