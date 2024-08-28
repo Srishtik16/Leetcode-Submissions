@@ -97,7 +97,7 @@ public:
             if(qr > -1) {
                 bestq = max(bestq, qr);
             }
-            dp[order[i]] = bestq > -1 ? 1 + bestq : 1;
+            dp[order[i]] = 1 + bestq;
             st.update(0, order[i], dp[order[i]], 0, n - 1);
         }
         return *max_element(dp.begin(), dp.end());
