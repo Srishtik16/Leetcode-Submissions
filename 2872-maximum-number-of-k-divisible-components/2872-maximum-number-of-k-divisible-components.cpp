@@ -13,7 +13,6 @@ public:
             ans++;
             sum = 0;
         }
-        cout << node << " " << sum << endl;
         return sum;
     }
     int maxKDivisibleComponents(int n, vector<vector<int>>& edges, vector<int>& values, int k) {
