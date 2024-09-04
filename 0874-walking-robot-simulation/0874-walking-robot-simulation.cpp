@@ -4,7 +4,7 @@ public:
         // map obstacles as x -> yi and y -> xi
         // if in direction and pos, obstacle is found, go to obs - 1 coord else + k
         // simulate
-        map<int, set<int>> mx, my;
+        unordered_map<int, unordered_set<int>> mx, my;
         for(auto x: obstacles) {
             mx[x[0]].insert(x[1]);
             my[x[1]].insert(x[0]);
