@@ -37,9 +37,7 @@ public:
                 else {
                     mat[i][j] = i > 0 ? mat[i - 1][j] + 1 : 1;
                 }
-                cout << mat[i][j] << " ";
             }
-            cout << endl;
         }
         int ans = 0;
         for(auto x: mat) {
