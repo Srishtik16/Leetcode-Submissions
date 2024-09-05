@@ -41,7 +41,6 @@ public:
         }
         int ans = 0;
         for(auto x: mat) {
-            cout << largestRectangle(x) << endl;
             ans = max(ans, largestRectangle(x));
         }
         return ans;
