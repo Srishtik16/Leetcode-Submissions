@@ -7,7 +7,6 @@ public:
             while(n / pw > 0) {
                 ans += (n / pw);
                 pw *= 5;
-                //cout << pw << endl;
             }
             return ans;
         };
@@ -15,7 +14,6 @@ public:
             long long l = 0, r = 1e15, ans = -1;
             while(l <= r) {
                 long long mid = (l + r) / 2;
-                // cout << mid << endl;
                 if(check(mid) >= k) {
                     ans = mid;
                     r = mid - 1;
@@ -27,12 +25,10 @@ public:
             return ans;
         };
         long long left = search(k);
-        // cout << left << endl;
         if(check(left) != k) {
             return 0;
         }
         long long right = search(k + 1);
-        // cout << left << " " << right << endl;
         return right - left;
     }
 };
