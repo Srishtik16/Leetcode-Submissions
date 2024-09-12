@@ -8,11 +8,11 @@ public:
         if(i == j) {
             return piles == 1 ? 0 : 1e9;
         }
-        if(dp[i][j][piles] != -1) {
-            return dp[i][j][piles];
-        }
         if(piles == 1) {
             return dp[i][j][piles] = recurse(i, j, k, k, pref) + pref[j] - (i > 0 ? pref[i - 1] : 0);
+        }
+        if(dp[i][j][piles] != -1) {
+            return dp[i][j][piles];
         }
         int ans = 1e9;
         for(int mid = i; mid < j; mid += k - 1) {
