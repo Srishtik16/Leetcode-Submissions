@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/parallel-courses-ii/discuss/709382/C%2B%2B-O(3n)-bitmask-dynamic-programming-code-with-comments-and-tutorial
 class Solution {
 public:
     int minNumberOfSemesters(int n, vector<vector<int>>& relations, int k) {
