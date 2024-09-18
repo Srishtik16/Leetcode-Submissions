@@ -1,38 +1,56 @@
 class Solution {
 public:
-    vector<vector<int>> adj;
+    vector<vector<int>> adj, revadj;
+    vector<int> toposort;
     vector<bool> vis;
-    vector<int> path; // needs to lie on same path (that makes it separate from undirected case)
-    bool cycle;
     void dfs(int node) {
         vis[node] = true;
-        path[node] = 1;
-        for(auto x: adj[node]) {
+        for(auto x: revadj[node]) {
             if(!vis[x]) {
                 dfs(x);
-            } 
-            if(vis[x] && path[x]) {
-                cycle = true;
             }
         }
-        path[node] = 0;
+        toposort.push_back(node);
+    }
+    void revdfs(int node) {
+        vis[node] = true;
+        for(auto x: revadj[node]) {
+            if(!vis[x]) {
+                revdfs(x);
+            }
+        }
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        adj.clear();
-        vis.clear();
-        path.clear();
-        adj.resize(numCourses);
-        vis.resize(numCourses);
-        path.resize(numCourses);
+        // if theres a scc with more than one node, then it implies a cycle
+        // Kosaraju's algorithm
+        // Reverse the adjacency list
+        // Do a toposort of the graph
+        // do a dfs in order of toposort
+        // each cc is a SCC
+        adj = vector<vector<int>>(numCourses);
+        revadj = adj;
+        toposort.clear();
+        vis = vector<bool>(numCourses);
         for(auto x: prerequisites) {
-            adj[x[0]].push_back(x[1]);
+            if(x[0] == x[1]) {
+                return false;
+            }
+            adj[x[1]].push_back(x[0]);
+            revadj[x[0]].push_back(x[1]);
         }
-        cycle = false;
         for(int i = 0; i < numCourses; i++) {
             if(!vis[i]) {
                 dfs(i);
             }
         }
-        return !cycle;
+        vis = vector<bool>(numCourses);
+        int sccs = 0;
+        for(auto x: toposort) {
+            if(!vis[x]) {
+                revdfs(x);
+                sccs++;
+            }
+        }
+        return sccs == numCourses;
     }
 };
