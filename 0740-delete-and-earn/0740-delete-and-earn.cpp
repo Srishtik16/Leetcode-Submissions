@@ -1,19 +1,20 @@
 class Solution {
 public:
     int deleteAndEarn(vector<int>& nums) {
-        // dp[i] = best answer if we take upto ith element value as the largest value in set
-        // Its optimal to take all occurence of a number if we take one of them
-        // If we take i, we can take only upto dp[i - 2] + all i's occurences, else dp[i - 1]
-        map<int, int> m;
+        map<int, int> dp, cnt;
         for(auto x: nums) {
-            m[x]++;
+            cnt[x]++;
         }
-        int mx = *max_element(nums.begin(), nums.end());
-        vector<int> dp(mx + 1, 0);
-        dp[(*m.begin()).first] = (*m.begin()).second * (*m.begin()).first;
-        for(int i = 2; i <= mx; i++) {
-            dp[i] = max(dp[i - 1], dp[i - 2] + m[i] * i);
+        for(auto x: cnt) {
+            dp[x.first] = x.second * x.first;
         }
-        return *max_element(dp.begin(), dp.end());
+        for(int x = 2; x <= cnt.rbegin() -> first; x++) {
+            dp[x] = max(dp[x - 1], dp[x - 2] + x * cnt[x]);
+        } 
+        int mx = 0;
+        for(auto x: dp) {
+            mx = max(mx, x.second);
+        }
+        return mx;
     }
 };
