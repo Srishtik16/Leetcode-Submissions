@@ -5,20 +5,22 @@ using namespace __gnu_pbds;
 class Solution {
 public:
     int countRangeSum(vector<int>& nums, int lower, int upper) {
+        // Count sums <= upper - count sums <= lower - 1
+        // find prefix sums
+        // if pref >= val we need all sums = pref - x <= val
+        // x >= pref - val
         int n = nums.size();
-        auto countSums = [&](int val) {
+        auto count = [&](int val) {
             ordered_set oset;
-            long long sum = 0, ans = 0;
+            long long pref = 0, ans = 0;
+            oset.insert(0);
             for(int i = 0; i < n; i++) {
-                sum += nums[i];
-                if(sum <= val) {
-                    ans++;
-                }
-                ans += oset.order_of_key(sum - val - 1); // values >= sum - val because it will be subtracted
-                oset.insert(sum);
+                pref += nums[i];
+                ans += oset.order_of_key(pref - val - 1);
+                oset.insert(pref);
             }
             return ans;
         };
-        return countSums(upper) - countSums(lower - 1);
+        return count(upper) - count(lower - 1);
     }
 };
