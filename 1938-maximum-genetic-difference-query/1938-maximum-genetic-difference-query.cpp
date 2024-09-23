@@ -85,7 +85,7 @@ class Solution {
 public:
     vector<vector<int>> adj;
     vector<bool> vis;
-    map<int, vector<pair<int, int>>> mapped;
+    unordered_map<int, vector<pair<int, int>>> mapped;
     vector<int> ans;
     XorTrie* trie;
     string toBinary(int x) {
