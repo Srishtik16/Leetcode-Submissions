@@ -9,8 +9,8 @@ public:
             for(char c: x) {
                 m[c]++;
             }
-            for(char c = 'a'; c <= 'z'; c++) {
-                maxHash[c] = max(maxHash[c], m[c]);
+            for(auto c: m) {
+                maxHash[c.first] = max(maxHash[c.first], m[c.first]);
             }
         }
         vector<string> ans;
@@ -20,8 +20,8 @@ public:
                 m[c]++;
             }
             bool ok = true;
-            for(char c = 'a'; c <= 'z'; c++) {
-                ok &= (m[c] >= maxHash[c]);
+            for(auto c: maxHash) {
+                ok &= (m[c.first] >= maxHash[c.first]);
             }
             if(ok) {
                 ans.push_back(x);
