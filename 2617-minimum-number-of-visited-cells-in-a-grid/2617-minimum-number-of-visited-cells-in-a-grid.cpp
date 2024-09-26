@@ -8,9 +8,6 @@ public:
         return min(x, y);
     }
     int query(int node, int start, int end, int l, int r) {
-        if(l > r) {
-            return 0;
-        }
         // l r start end OR start end l r
         if(r < start || end < l) {
             return 1e9;
